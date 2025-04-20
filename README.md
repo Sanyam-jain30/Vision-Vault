@@ -1,99 +1,123 @@
-# Face Blurring and Encryption in Video
 
-This project uses computer vision and cryptography to blur faces in videos while securely encrypting and storing the face data. It allows for selective decryption of specific frames, ensuring privacy while keeping the face data encrypted.
+# 🛡️ VisionVault: Privacy-Preserving Face Blurring and Selective Decryption in Video
 
-## Features
+**VisionVault** is a computer vision + cryptography pipeline that blurs faces in videos and securely encrypts the facial regions for selective restoration.  
+Designed to ensure privacy, security, and compliance, this project enables face anonymization while preserving encrypted identity data in a controllable and auditable manner.
 
-- **Face Detection and Blurring**: Detects faces in each frame of a video and applies Gaussian blur to obscure them.
-- **Encryption**: Encrypts the detected face regions and stores the encrypted data along with the key in a JSON file.
-- **Selective Decryption**: Enables the restoration of specific faces in the video by decrypting encrypted face data.
-- **Data Security**: All sensitive face data is encrypted and stored separately from the video, ensuring privacy and security.
-- **Easy Integration**: The project can be used to process any video, blur faces, and selectively restore them using the keys.
+---
 
-## Technologies Used
+## 📌 Project Overview
 
-- **OpenCV**: For video processing, face detection, and manipulation.
-- **RetinaFace**: For accurate face detection in images.
-- **Cryptography (Fernet)**: For encrypting and decrypting face data.
-- **JSON**: For storing the encrypted face data and corresponding keys.
+VisionVault combines **state-of-the-art face detection** with **secure encryption mechanisms** to create a robust, end-to-end solution for **privacy-preserving video processing**.
 
-## Requirements
+- 🔍 Automatically detects and blurs faces in video streams using RetinaFace.
+- 🔐 Encrypts and stores cropped face data securely in a JSON format using Fernet symmetric encryption.
+- 🧩 Allows **selective restoration** of encrypted faces via frame/key matching.
+- 🗃️ Ensures encrypted data is stored **separately** from the processed video to maintain confidentiality.
 
-To run this project, you'll need the following Python packages:
+---
 
-- `opencv-python`
-- `numpy`
-- `cryptography`
-- `retinaface`
+## 🛠️ Technologies Used
 
-You can install these dependencies using `pip`:
+| Category           | Stack                                      |
+|-------------------|---------------------------------------------|
+| Face Detection     | `RetinaFace`, `OpenCV`                     |
+| Video Processing   | `OpenCV`, `NumPy`                          |
+| Cryptography       | `Fernet (cryptography package)`            |
+| Data Storage       | `JSON` (encrypted face data & keys)        |
+| Language           | Python 3.x                                 |
 
-``` bash
+---
+
+## 🔐 Key Features
+
+- **Face Detection + Gaussian Blurring**  
+  Accurate face detection with RetinaFace, followed by Gaussian masking.
+
+- **Per-frame Face Encryption**  
+  Cropped face regions are encrypted using Fernet and saved securely.
+
+- **Selective Face Restoration**  
+  Allows authorized restoration of specified faces in specific frames via decryption keys.
+
+- **Secure, Modular Architecture**  
+  All facial data is kept encrypted outside of the main video stream, enabling compliance and audit control.
+
+- **Plug-and-Play Design**  
+  Easily integrate into any video pipeline — supports any video input.
+
+---
+
+## 🧠 Skills Demonstrated
+
+- **Computer Vision** with OpenCV & RetinaFace for real-time face tracking
+- **Data Privacy & Cryptography** using Fernet encryption
+- **Secure Data Engineering** via JSON-based key-value storage and modular decryption
+- **Automation & AI Workflow Integration**
+- **Collaborative Team Engineering** on vision-driven research and development
+
+---
+
+## 📦 Installation & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/visionvault.git
+cd visionvault
+
+# Install requirements
 pip install opencv-python numpy cryptography retinaface
 ```
 
-## Setup
-Clone this repository:
+> ✅ Make sure to place your video files inside `./data/` or update the path in the script.
 
-``` bash
-git clone https://github.com/yourusername/face-blurring-encryption.git
-cd face-blurring-encryption
-```
+---
 
-Install the required packages:
+## ⚙️ Usage
 
-```bash
-pip install -r requirements.txt
-```
+### 🔧 1. Process and Encrypt Video
 
-Make sure to place your video files in the ./data directory (or specify your video path in the script).
-
-Run the script:
-```bash
-python process_video.py
-```
-
-This will generate a blurred video along with a JSON file containing the encrypted face data and keys.
-
-## Usage
-Process Video
-To process a video, blur faces, and encrypt face data, call the process_video function with the video file path.
-
-```bash
-video_path = "./data/sample.mp4"  # Path to your video file
+```python
+video_path = "./data/sample.mp4"
 process_video(video_path)
 ```
 
-Restore Selected Frames
-You can restore specific frames by providing the frame number and corresponding encryption keys in the frame_keys dictionary.
+- Output:
+  - `blurred_video.mp4` — anonymized video
+  - `encrypted_faces.json` — per-frame encrypted face data + keys
 
-```bash
+---
+
+### 🔓 2. Restore Selected Frames
+
+```python
 frame_keys = {
-    "0": [
-        "encrypted_key_1",
-        "encrypted_key_2"
-    ],
-    "3": [
-        "encrypted_key_3",
-        "encrypted_key_4"
-    ]
+    "0": ["encrypted_key_1", "encrypted_key_2"],
+    "3": ["encrypted_key_3", "encrypted_key_4"]
 }
+
 restore_selected_frames("./output/blurred_video.mp4", frame_keys)
 ```
 
-This will restore only the specified frames (in this case, frames 0 and 3).
+- Output:
+  - `restored_selected_frames.mp4` — only selected faces are decrypted and visible
 
-## Output
-blurred_video.mp4: The processed video with blurred faces.
-encrypted_faces.json: A JSON file containing encrypted face data and the corresponding keys.
-restored_selected_frames.mp4: A video containing the selected restored frames, based on the provided encryption keys.
+---
 
-## Workflow
-Step 1: Process and Encrypt Video
-Run `process_video(video_path)` to blur faces in the video and store the encrypted face data.
+## 📂 Output Summary
 
-Step 2: Selective Decryption
-Provide the frame numbers and the corresponding keys to `restore_selected_frames` to decrypt and restore specific faces.
+| File                          | Description                                     |
+|-------------------------------|-------------------------------------------------|
+| `blurred_video.mp4`           | Video with all faces blurred                   |
+| `encrypted_faces.json`        | Encrypted face crops + keys                    |
+| `restored_selected_frames.mp4`| Video with selected faces decrypted            |
 
-### Team
-Thanks to Bhavya Shah, Aryan Bhatt, and Akash for awesome team work.
+---
+
+## 👥 Team
+
+Created with collaboration between:
+- **Bhavya Shah**  
+- **Aryan Bhatt**  
+- **Akash**  
+
